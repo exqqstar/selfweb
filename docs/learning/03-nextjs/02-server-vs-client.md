@@ -98,4 +98,23 @@ RN 里所有组件都在客户端运行。Server Component 是 Web 独有的概�
 - [ ] 知道 Server Component 不能用 hooks
 
 ## 我的实践
-<!-- 列出 selfweb 的页面，标注哪些部分是 Server 哪些是 Client -->
+
+### selfweb 组件分析 (2026-02-07)
+
+当前文件：
+- `src/app/layout.tsx` → **Server Component**（没有 'use client'，不需要交互）
+- `src/app/page.tsx` → **Server Component**（只有 Link，没有 useState/onClick）
+
+注意 `page.tsx` 里用了 `<Link>` 组件：
+```tsx
+import Link from "next/link";
+<Link href="/about">About</Link>
+```
+虽然 Link 在浏览器里会做客户端导航（不刷新页面），但**使用 Link 的页面本身不需要变成 Client Component**。
+Link 组件内部已经处理了客户端逻辑，你只是在 Server Component 里引用它。
+
+将来需要变成 Client Component 的场景：
+- 主题切换按钮（需要 useState + onClick）
+- 移动端汉堡菜单（需要 useState 控制展开/收起）
+- 博客文章的点赞按钮
+- 实验室里的交互 demo

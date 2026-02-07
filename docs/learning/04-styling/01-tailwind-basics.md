@@ -85,4 +85,47 @@
 - [ ] 能用 Tailwind 还原一个简单卡片设计
 
 ## 我的实践
-<!-- 用 Tailwind 做一张个人名片卡片 -->
+
+### Tailwind v4 vs v3 差异 (2026-02-07)
+
+项目实际安装了 **Tailwind v4**，和网上大多数教程（v3）有区别：
+
+```css
+/* v3（旧，大多数教程用这个） */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* v4（我们用的） */
+@import "tailwindcss";
+```
+
+v4 的其他变化：
+- 不需要 `tailwind.config.js`，配置直接写在 CSS 里用 `@theme inline`
+- 用 CSS 变量定义自定义颜色/字体
+- PostCSS 插件从 `tailwindcss` 改为 `@tailwindcss/postcss`
+
+### 首页用到的 Tailwind 类解析
+
+```tsx
+<div className="flex min-h-screen flex-col items-center justify-center px-4">
+```
+- `flex` → display: flex
+- `min-h-screen` → min-height: 100vh（至少占满一屏）
+- `flex-col` → flex-direction: column
+- `items-center` → align-items: center（水平居中）
+- `justify-center` → justify-content: center（垂直居中）
+- `px-4` → padding-left/right: 16px
+
+```tsx
+<h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+```
+- `text-4xl` → font-size: 2.25rem（手机）
+- `sm:text-5xl` → font-size: 3rem（≥640px 屏幕变大）
+- `tracking-tight` → letter-spacing: -0.025em（字间距紧凑）
+
+```tsx
+className="rounded-lg border border-gray-200 px-4 py-2 transition-colors hover:bg-gray-100"
+```
+- `transition-colors` → color 相关属性有过渡动画
+- `hover:bg-gray-100` → 鼠标悬停时背景变浅灰

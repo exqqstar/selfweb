@@ -85,4 +85,34 @@ router.push('/blog')
 - [ ] 能用 Link 和 useRouter 导航
 
 ## 我的实践
-<!-- 试着画出 selfweb 的路由结构 -->
+
+### selfweb 当前路由结构 (2026-02-07)
+```
+src/app/
+├── layout.tsx     → 全局布局（所有页面共享）
+├── page.tsx       → /           首页
+├── globals.css    → 全局样式（不是路由）
+└── favicon.ico    → 网站图标（不是路由）
+```
+
+目标路由结构（待创建）：
+```
+src/app/
+├── layout.tsx           → 全局布局
+├── page.tsx             → /
+├── about/page.tsx       → /about
+├── blog/
+│   ├── page.tsx         → /blog
+│   └── [slug]/page.tsx  → /blog/xxx
+├── projects/
+│   ├── page.tsx         → /projects
+│   └── [id]/page.tsx    → /projects/xxx
+└── lab/
+    ├── page.tsx         → /lab
+    └── [slug]/page.tsx  → /lab/xxx
+```
+
+### 观察到的
+- `create-next-app` 加了 `--src-dir` 选项，所以 app 目录在 `src/app/` 而非 `app/`
+- `globals.css` 和 `favicon.ico` 虽然在 app 目录里但不是路由文件，只有 `page.tsx` 才创建路由
+- `layout.tsx` 里配置了 Geist 字体和全局 metadata
